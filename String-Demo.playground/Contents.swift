@@ -91,7 +91,7 @@ let digit = word2[word2.startIndex.advancedBy(distance)]
 
 
 let fqdn = "useryourload.com"
-let rangeOfTLD = Range(start: fqdn.endIndex.advancedBy(-3), end: fqdn.endIndex)
+let rangeOfTLD = fqdn.endIndex.advancedBy(-3)..<fqdn.endIndex
 let tld = fqdn[rangeOfTLD]
 
 let rangeOfDomain = fqdn.startIndex..<fqdn.endIndex.advancedBy(-4)
