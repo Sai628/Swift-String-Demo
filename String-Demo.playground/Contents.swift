@@ -3,61 +3,61 @@
 import Foundation
 
 
-var emptyString = ""
-var stillEmpty = String()
-let helloWorld = "Hello World!"
-let a = String(true)
-let b: Character = "A"
-let c = String(b)
-let d = String(3.14)
-let e = String(1000)
-let f = "Result = \(d)"
-let g = "\u{2126}"
-let h = String(count: 3, repeatedValue: Character("A"))
+var emptyString = ""  // ""
+var stillEmpty = String()  // ""
+let helloWorld = "Hello World!"  // "Hello World!"
+let a = String(true)  // "true"
+let b: Character = "A"  // "A"
+let c = String(b)  // "A"
+let d = String(3.14)  // "3.14"
+let e = String(1000)  // "1000"
+let f = "Result = \(d)"  // "Result = 3.14"
+let g = "\u{2126}"  // "Ω"
+let h = String(repeating: "A", count: 3)  // "AAA"
 
 
 var aString = "Hello"
 var bString = aString
 bString += " World!"
-print("\(aString)")
+print("\(aString)")  // ""Hello\n""
 
 
-emptyString.isEmpty
+emptyString.isEmpty  // true
 
 
-let spain = "España"
-let tilde = "\u{303}"
-let country = "Espan" + "\(tilde)" + "a"
+let spain = "España"  // "España"
+let tilde = "\u{303}"  // "̃"
+let country = "Espan" + "\(tilde)" + "a"  // "España"
 if country == spain {
-    print("match")
+    print("match")  // "match\n"
 }
 
 
 if "aaa" < "bbb" {
-    print("aaa")
+    print("aaa")  // "aaa\n"
 }
 
 
 let line = "0001 这里放上一些测试数据 %%%%"
-line.hasPrefix("0001")
-line.hasSuffix("%%%%")
+line.hasPrefix("0001")  // true
+line.hasSuffix("%%%%")  // true
 
 
 let mixedCase = "AbcDef"
-mixedCase.uppercaseString
-mixedCase.lowercaseString
+mixedCase.uppercased()  // "ABCDEF"
+mixedCase.lowercased()  // "abcdef"
 
 
 country.characters
-country.unicodeScalars
-country.utf16
-country.utf8
+country.unicodeScalars  // "España"
+country.utf16  // "España"
+country.utf8  // "España"
 
 
-print(country.characters.count)
-print(country.unicodeScalars.count)
-print(country.utf16.count)
-print(country.utf8.count)
+print(country.characters.count)  // "6\n"
+print(country.unicodeScalars.count)  // "7\n"
+print(country.utf16.count)  // "7\n"
+print(country.utf8.count)  // "8\n"
 
 
 var sentence = "Never odd or even"
@@ -67,15 +67,12 @@ for c in sentence.characters {
 
 
 let cafe = "café"
-cafe.startIndex
-cafe.endIndex
-
-
-cafe[cafe.startIndex]
-cafe[cafe.startIndex.successor()]
-cafe[cafe.startIndex.successor().successor()]
-cafe[cafe.endIndex.predecessor()]
-cafe[cafe.endIndex.advancedBy(-4)]
+let startIndex = cafe.startIndex  // 0
+let endIndex = cafe.endIndex  // 4
+cafe[cafe.startIndex]  // c
+cafe[cafe.index(after: startIndex)]  // a
+cafe[cafe.index(before: endIndex)]  // é
+cafe[cafe.index(endIndex, offsetBy: -4)]  // c
 
 
 for index in cafe.characters.indices {
@@ -85,78 +82,77 @@ for index in cafe.characters.indices {
 
 let word1 = "ABCDEF"
 let word2 = "012345"
-let indexC = word1.startIndex.advancedBy(2)
-let distance = word1.startIndex.distanceTo(indexC)
-let digit = word2[word2.startIndex.advancedBy(distance)]
+let indexC = word1.index(word1.startIndex, offsetBy: 2)  // 2
+let distance = word1.distance(from: word1.startIndex, to: indexC)  // 2
+let digit = word2[word2.index(word2.startIndex, offsetBy: distance)]  // "2"
 
 
 let fqdn = "useryourload.com"
-let rangeOfTLD = fqdn.endIndex.advancedBy(-3)..<fqdn.endIndex
-let tld = fqdn[rangeOfTLD]
+let rangeOfTLD = fqdn.index(fqdn.endIndex, offsetBy: -3)..<fqdn.endIndex
+let tld = fqdn[rangeOfTLD]  // "com"
 
-let rangeOfDomain = fqdn.startIndex..<fqdn.endIndex.advancedBy(-4)
-let domain = fqdn[rangeOfDomain]
+let rangeOfDomain = fqdn.startIndex..<fqdn.index(fqdn.endIndex, offsetBy: -4)
+let domain = fqdn[rangeOfDomain]  // "useryourload"
 
 
 var template = "<<<Hello>>>"
-let indexStartOfText = template.startIndex.advancedBy(3)
-let indexEndOfText = template.endIndex.advancedBy(-3)
-let sub1 = template.substringFromIndex(indexStartOfText)
-let sub2 = template.substringToIndex(indexEndOfText)
+let indexStartOfText = template.index(template.startIndex, offsetBy: 3)  // 3
+let indexEndOfText = template.index(template.endIndex, offsetBy: -3)  // 8
+let sub1 = template.substring(from: indexStartOfText)  // "Hello>>>"
+let sub2 = template.substring(to: indexEndOfText)  // "<<<Hello"
 
 
 let rangeOfText = indexStartOfText..<indexEndOfText
-let text1 = template.substringWithRange(rangeOfText)
-let text2 = template.substringWithRange(indexStartOfText..<indexEndOfText)
+let text1 = template.substring(with: rangeOfText)  // "Hello"
+let text2 = template.substring(with: indexStartOfText..<indexEndOfText)  // "Hello"
 
 
 let digits = "0123456789"
-let tail = String(digits.characters.dropFirst())
-let less = String(digits.characters.dropFirst(3))
-let head = String(digits.characters.dropLast(3))
+let tail = String(digits.characters.dropFirst())  // "123456789"
+let less = String(digits.characters.dropFirst(3))  // "3456789"
+let head = String(digits.characters.dropLast(3))  // "0123456"
 
 
-let prefix = String(digits.characters.prefix(2))
-let suffix = String(digits.characters.suffix(2))
+let prefix = String(digits.characters.prefix(2))  // "01"
+let suffix = String(digits.characters.suffix(2))  // "89"
 
 
-let index4 = digits.startIndex.advancedBy(4)
-let thru4 = String(digits.characters.prefixThrough(index4))
-let upTo4 = String(digits.characters.prefixUpTo(index4))
-let from4 = String(digits.characters.suffixFrom(index4))
+let index4 = digits.index(digits.startIndex, offsetBy: 4)  // 4
+let thru4 = String(digits.characters.prefix(through: index4))  // "01234"
+let upTo4 = String(digits.characters.prefix(upTo: index4))  // "0123"
+let from4 = String(digits.characters.suffix(from: index4))  // "456789"
 
 
 var starts = "******"
-starts.insert("X", atIndex: starts.startIndex.advancedBy(3))
-starts.insertContentsOf("YX".characters, at: starts.endIndex.advancedBy(-3))
+starts.insert("X", at: starts.index(starts.startIndex, offsetBy: 3))  // "***X***"
+starts.insert(contentsOf: "YX".characters, at: starts.index(starts.endIndex, offsetBy: -3))  // "***XYX***"
 
 
-let xyzRange = starts.startIndex.advancedBy(3)..<starts.endIndex.advancedBy(-3)
-starts.replaceRange(xyzRange, with: "ABC")
+let xyzRange = starts.index(starts.startIndex, offsetBy: 3)..<starts.index(starts.endIndex, offsetBy: -3)
+starts.replaceSubrange(xyzRange, with: "ABC")  // "***ABC***"
 
 
 var message = "Welcome"
 message += " Time"
-message.appendContentsOf("!!!")
+message.append("!!!")  // "Welcome Time!!!"
 
 
 var grades = "ABCDEF"
-let ch = grades.removeAtIndex(grades.startIndex)
-print(grades)
+let ch = grades.remove(at: grades.startIndex)  // "A"
+print(grades)  // "BCDEF\n"
 
 
 var sequence = "ABA BBA ABC"
-let midRange = sequence.startIndex.advancedBy(4)...sequence.endIndex.advancedBy(-4)
-sequence.removeRange(midRange)
+let midRange = sequence.index(sequence.startIndex, offsetBy: 4)...sequence.index(sequence.endIndex, offsetBy: -4)
+sequence.removeSubrange(midRange)  // "ABA ABC"
 
 
 let welcome = "hello world!"
-welcome.capitalizedString
+welcome.capitalized  // "Hello World!"
 
 
 let text = "123045780984"
-if let rangeOfZero = text.rangeOfString("0", options: NSStringCompareOptions.BackwardsSearch, range: nil, locale: nil) {
-    let suffix = text.substringFromIndex(rangeOfZero.endIndex)
+if let rangeOfZero = text.range(of: "0", options: .backwards, range: nil, locale: nil) {
+    let suffix = text.substring(from: rangeOfZero.upperBound)  // "984"
 }
-
 
